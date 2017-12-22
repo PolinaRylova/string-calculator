@@ -1,0 +1,41 @@
+.task-field,
+.calculate-btn,
+.result {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #25102c;
+  margin: 10px 5px;
+  padding: 8px 10px;
+  border: 2px solid #006fa6;
+  border-radius: 4px;
+}
+
+.task-field {
+  resize: none;
+}
+
+.calculate-btn {
+  vertical-align: top;
+}
+
+.task-field:focus,
+.calculate-btn:focus {
+  outline-offset: -1px;
+  outline-width: 1px;
+  outline-color: #0677ef;
+}
+
+.task-field:hover,
+.calculate-btn:hover {
+  box-shadow: 0 0 10px #6b9bc1;
+}
+
+.task-field:active,
+.calculate-btn:active {
+  background-color: #91c2e8;
+}
+
+.result {
+  padding: 0;
+  border: none;
+}
