@@ -46,9 +46,9 @@
 
   const calculateInputtedExpression = function () {
     // сохраняем введенную строку
-    let taskFieldValue = document.querySelector('.task-field').value;
+    let taskField = document.querySelector('.task-field');
     // вызываем функцию, преобразующую строку в массив, и сохраняем результат в переменной
-    const inputtedExpressions = splitToArray(taskFieldValue);
+    const inputtedExpressions = splitToArray(taskField.value);
     // разбираем массив введенных значений на операторы и операнды и складываем в новый массив
     const parsedMembers = parseExpressions (inputtedExpressions);
     /*
@@ -65,7 +65,7 @@
     } else {
       alert('Ошибка ввода. Вы можете вводить цифры или знаки "+", "-", "*", "/".');
     }
-    taskFieldValue = "";
+    taskField.value = "";
   };
 
   document.querySelector('.calculate-btn').addEventListener('click', calculateInputtedExpression);
