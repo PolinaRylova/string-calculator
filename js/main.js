@@ -24,6 +24,7 @@
       // кладем в массив оператор (всегда следующим за операндом)
       parsedArray.push(item);
       }
+      // добавляем в массив последний из операндов
       if (index === array.length - 1) {
         parsedArray.push(operand);
       }
