@@ -1,44 +1,72 @@
 'use strict';
 (function () {
-  const operatorsArray = ['+', '-', '*', '/'];
-  let operator;
-  let leftOperand = "";
-  let rightOperand = "";
-  let result;
+  const availableOperators = ['+', '-', '*', '/'];
+  const availableOperands = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-  const calculateInputedExspression = function () {
-    // извлекаем textContent и сохраняем значение в массив
-    const inputedExpressionArray = document.querySelector('.task-field').value.split('');
-    // парсим массив и записываем в переменные
-    inputedExpressionArray.forEach(function(item) {
-      if (!operator) {
-        if (operatorsArray.indexOf(item) < 0) {
-          leftOperand += item;
-        } else {
-          operator = item;
-        }
-      } else {
-        rightOperand += item;
-      }
-    });
-    // выполняем вычисления над данными из массива
-    switch (operator) {
-      case '+':
-        result = Number(leftOperand) + Number(rightOperand);
-        break;
-      case '-':
-        result = leftOperand - rightOperand;
-        break;
-      case '*':
-        result = leftOperand * rightOperand;
-        break;
-      case '/':
-        result = leftOperand / rightOperand;
-        break;
-    }
-    // вызов функции, которая отображает результат вычислений в resultBlock
-    document.querySelector('.result-block').textContent = result;
+  const splitToArray = function (string) {
+    return string.split('');
   };
 
-  document.querySelector('.calculate-btn').addEventListener('click', calculateInputedExspression);
+  const parseExpressions = function (array) {
+    let parsedArray = [];
+    let operand = "";
+    array.forEach(function (item, index, array) {
+      if (availableOperands.indexOf(item) >= 0) {
+        operand += item;
+      } else if (availableOperators.indexOf(item) >= 0) {
+        // если юзер первым символом ввел оператор, а не операнд
+        if (operand === "") {
+          parsedArray.push("0");
+        } else {
+          parsedArray.push(operand);
+          operand = "";
+        }
+      // кладем в массив оператор (всегда следующим за операндом)
+      parsedArray.push(item);
+      }
+      if (index === array.length - 1) {
+        parsedArray.push(operand);
+      }
+    });
+    /*
+    Если юзер ввел пустую строку, неподдерживаемый символ или ничего не ввел
+    и нажал "Посчитать", то вернётся пустой массив
+    */
+    return parsedArray;
+  };
+
+  const calculateExpression = function (string) {
+    return eval(string);
+  };
+
+  const showToDiv = function (value, selector) {
+    const text = "Ваш результат равен ";
+    document.querySelector(selector).textContent = text + value;
+  };
+
+  const calculateInputtedExpression = function () {
+    // сохраняем введенную строку
+    let taskFieldValue = document.querySelector('.task-field').value;
+    // вызываем функцию, преобразующую строку в массив, и сохраняем результат в переменной
+    const inputtedExpressions = splitToArray(taskFieldValue);
+    // разбираем массив введенных значений на операторы и операнды и складываем в новый массив
+    const parsedMembers = parseExpressions (inputtedExpressions);
+    /*
+    Проверяем, заполнен ли массив: если заполнен, делаем вычисления,
+    если пустой - выводим ошибку и очищаем поле ввода
+     */
+    if (parsedMembers.length > 0) {
+      // преобразуем массив в строку
+      let stringOfExpression = parsedMembers.join(" ");
+      // вызываем функцию, вычисляющую из строки результат
+      const result = calculateExpression(stringOfExpression);
+      // вызываем функцию, отображающюю результат
+      showToDiv(result, '.result-block');
+    } else {
+      alert('Ошибка ввода. Вы можете вводить цифры или знаки "+", "-", "*", "/".');
+    }
+    taskFieldValue = "";
+  };
+
+  document.querySelector('.calculate-btn').addEventListener('click', calculateInputtedExpression);
 })();
