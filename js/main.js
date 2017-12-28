@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   const availableOperators = ['+', '-', '*', '/'];
-  const availableOperands = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const availableOperandSymbols = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
   const splitToArray = function (string) {
     return string.split('');
@@ -29,7 +29,7 @@
         throw new Error('Ошибка ввода. Первыми символами не могут быть "*" и "/".');
       }
       // если введен операнд (число), сохраняем его
-      if (availableOperands.indexOf(array[i]) >= 0) {
+      if (availableOperandSymbols.indexOf(array[i]) >= 0) {
         operand += array[i];
         if (i === array.length - 1) {
           parsedArray.push(operand);
