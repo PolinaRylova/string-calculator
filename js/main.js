@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   const availableOperators = ['+', '-', '*', '/'];
-  const availableOperandSymbols = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const availableOperandSymbols = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
 
   const splitToArray = function (string) {
     return string.split('');
@@ -31,6 +31,9 @@
       // если введен операнд (число), сохраняем его
       if (availableOperandSymbols.indexOf(array[i]) >= 0) {
         operand += array[i];
+        if(operand[0] === '.') {
+          operand = '0' + operand;
+        }
         if (i === array.length - 1) {
           parsedArray.push(operand);
         }
@@ -112,12 +115,14 @@
 
   const calculateResult = function (array) {
     let lowPrecedenceExpressions = transformToLowPrecedence(array);
-    console.log(lowPrecedenceExpressions);
+    if (lowPrecedenceExpressions.length === 1) {
+      return lowPrecedenceExpressions[0];
+    }
     let currentOperand = '';
     let previousOperand = '';
     let operator = '';
     for (let i = 0; i < lowPrecedenceExpressions.length; i++) {
-      if (availableOperators.indexOf(array[i]) >= 0) {
+      if (availableOperators.indexOf(lowPrecedenceExpressions[i]) >= 0) {
         if (operator) {
           previousOperand = calculateOperands(previousOperand, operator, currentOperand);
         }
