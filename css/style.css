@@ -1,6 +1,11 @@
+body {
+  position: relative;
+}
+
 .task-field,
-.calculate-btn,
-.result-block {
+.btn,
+.result-block,
+.modal-error {
   font-family: 'Arial', sans-serif;
   font-size: 14px;
   color: #25102c;
@@ -14,28 +19,45 @@
   resize: none;
 }
 
-.calculate-btn {
-  vertical-align: top;
-}
-
 .task-field:focus,
-.calculate-btn:focus {
+.btn:focus {
   outline-offset: -1px;
   outline-width: 1px;
   outline-color: #0677ef;
 }
 
 .task-field:hover,
-.calculate-btn:hover {
+.btn:hover,
+.modal-error:hover {
   box-shadow: 0 0 10px #6b9bc1;
 }
 
 .task-field:active,
-.calculate-btn:active {
+.btn:active {
   background-color: #91c2e8;
+}
+
+.btn--calculate {
+  vertical-align: top;
 }
 
 .result-block {
   padding: 0;
   border: none;
+}
+
+.modal-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 8px 15px;
+  background-color: #91c2e8;
+  outline-offset: -1px;
+  outline-width: 1px;
+  outline-color: #0677ef;
+}
+
+.hidden {
+  display: none;
 }
