@@ -10,6 +10,10 @@
   /** Массив доступных для обработки символов операндов
    */
   const availableOperandSymbols = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+  /**
+   * @type {Element} modalError - Модальное окно для всплывающих сообщениях об ошибках
+   */
+  const modalError = document.querySelector('.modal-error');
 
   /** Создает массив из переданной в параметре строки
    * @param {string} string - Строка, введенная юзером в поле ввода.
@@ -268,14 +272,28 @@
       // вызываем функцию, отображающюю результат
       showResult(result);
     } catch (e) {
-      alert(e.message);
+      modalError.querySelector('p').textContent = e.message;
+      modalError.classList.remove('hidden');
     }
   };
-  /** Находим кнопку по селектору класса '.calculate-btn' и назначаем ей обработчик события клика,
+/**
+ * Скрываем модальное окно с ошибкой, добавляя класс hidden
+ */
+  const hideModalError = function () {
+    modalError.classList.add('hidden');
+  };
+  /** Находим кнопку по селектору класса '.btn--calculate' и назначаем ей обработчик события клика,
    * при котором будет вызвана функция для действий над введённым пользователем в поле ввода значением.
-   * @param {querySelector<string>} .calculate-btn - Селектор класса, указывающий на элемент DOM-дерева.
+   * @param {querySelector<string>} .btn--calculate - Селектор класса, указывающий на элемент DOM-дерева.
    * @param {event<string>} click - Тип события, при котором будет срабатывать функция обратного вызова.
    * @param {function} calculateInputtedExpression - Функция обратного вызова, которая будет срабатывать при клике.
    */
-  document.querySelector('.calculate-btn').addEventListener('click', calculateInputtedExpression);
+  document.querySelector('.btn--calculate').addEventListener('click', calculateInputtedExpression);
+  /** Находим кнопку по селектору класса '.btn--error' и назначаем ей обработчик события клика,
+   * при котором будет вызвана функция для скрытия модального окна.
+   * @param {querySelector<string>} .btn--error - Селектор класса, указывающий на элемент DOM-дерева.
+   * @param {event<string>} click - Тип события, при котором будет срабатывать функция обратного вызова.
+   * @param {function} hideModalError - Функция обратного вызова, которая будет срабатывать при клике.
+   */
+  document.querySelector('.btn--error').addEventListener('click', hideModalError);
 })();
