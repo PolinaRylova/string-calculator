@@ -58,6 +58,10 @@ body {
   outline-color: #0677ef;
 }
 
+.modal-error:hover {
+  background-color: #d3e1f2;
+}
+
 .hidden {
   display: none;
 }
